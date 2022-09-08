@@ -30,7 +30,7 @@ async function init(){
     
             name : "Admin",
             userId : "admin",
-            email : "admin@123.com",
+            email : "dolbyaaa14@gmail.com",
             userType : "ADMIN",
             password : bcrypt.hashSync("Welcome",10)
         });

@@ -4,5 +4,6 @@ if(process.env.ENVIRONEMT!='prod'){
 }
 console.log(process.env.PORT);
 module.exports = {
-    PORT : process.env.PORT
+    PORT : process.env.PORT,
+    NServiceApi : process.env.NOTIFIER_API_CALL
 }

@@ -2,6 +2,9 @@ const User = require('../models/user.model');
 const Ticket = require('../models/ticket.model');
 const constant = require('../utils/constants');
 
+const sendEmailNotification = require('../utils/notification');
+
+//After ticket is created, send an email to all stakeholders.
 exports.createTicket = async(req,res) =>{
 
     try{
@@ -45,6 +48,13 @@ exports.createTicket = async(req,res) =>{
         engineer.ticketsAssigned.push(ticketCreated._id);
         await engineer.save();
 
+        //Sending email notification
+        const emailResp = sendEmailNotification(
+            `Ticket created with id : ${ticketCreated._id}`, 
+            `Ticket description : ${ticketCreated.description}`,
+            `${customer.email}, ${engineer.email}, "dolbya14@gmail.com"`,
+            "CRM APP");
+        console.log(emailResp);
         res.status(201).send(ticketCreated);
     }
     catch(err){
