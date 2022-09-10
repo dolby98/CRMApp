@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 const objconvert = require('../utils/objectConvertor');
 
 exports.findAll = async(req,res)=>{
-
+    
     const queryObj = {};
     
     const userTypeQP = req.query.userType;
@@ -28,7 +28,6 @@ exports.findAll = async(req,res)=>{
                 message : "No users found"
             });
         }
-
         return res.status(200).send(objconvert.userResponse(users));
     }
 
@@ -74,9 +73,10 @@ exports.updateUser = async (req,res)=>{
         user.userStatus = req.body.userStatus ? req.body.userStatus : user.userStatus;
         user.name = req.body.name ? req.body.name : user.name;
         user.userType = req.body.userType ? req.body.userType : user.userType;
-
+        console.log(user);
         const updatedUser = [await user.save()];
-
+        console.log(updatedUser);
+        
         return res.status(200).send(objconvert.userResponse(updatedUser));
 
     }

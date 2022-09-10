@@ -4,7 +4,7 @@ const constants = require('../utils/constants');
 const User = require('../models/user.model');
 
 const isUserAdmin = async (req,res,next) =>{
-    console.log("Idhar bhuuu");
+    console.log(req.userId);
     const user = await User.findOne({userType:constants.userTypes.Admin});
     console.log(user);
     if(user.userId!=req.userId){
@@ -17,7 +17,7 @@ const isUserAdmin = async (req,res,next) =>{
 }
 
 const isValidUserIdInReqParams = async(req,res,next) =>{
-    console.log("Am i coming here?=");
+    
     try{
         const user = await User.findOne({userId : req.params.userId});
         if(!user){
@@ -25,7 +25,7 @@ const isValidUserIdInReqParams = async(req,res,next) =>{
                 message : "User not found"
             });
         }
-        console.log("UserParamsValid");
+        
         next();
     }
     catch(err){
@@ -70,7 +70,7 @@ const verifyToken = (req,res,next) =>{
             message : "Failed! Access token is not provided"
         });
     }
-
+    
     try{
         jwt.verify(token,authConfig.secretKey, (err, decoded)=>{
             if(err){
@@ -81,6 +81,7 @@ const verifyToken = (req,res,next) =>{
             }
     
             req.userId = decoded.id;
+
             next();
         });
         

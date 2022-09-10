@@ -11,7 +11,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
-app.listen(serverConfigs.PORT, ()=>{
+/**
+ * So server app can be used for integration testing
+ */
+
+module.exports = app.listen(serverConfigs.PORT, ()=>{
     console.log("Server start on port 8777");
 });
 
@@ -47,7 +51,7 @@ async function init(){
 
 mongo.connect("mongodb+srv://admin:admin@cluster0.ytx7eni.mongodb.net/CRM_DB", ()=>{
     console.log("Connected to MongoDB Atlas");
-    init();
+    // init(); Commenting to make db for testing
 },
     err=>{
         console.log(err);
